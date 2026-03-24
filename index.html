@@ -1,401 +1,742 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ITStoreX</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- GSAP Core + ScrollTrigger + SplitText (via CDN) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ITStoreX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP Core + ScrollTrigger + SplitText (via CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" href="photo/Gemini_Generated_Image_l5ef5el5ef5el5ef.png">
-</head>
-<body>
+    <link
+      rel="icon"
+      type="image/png"
+      href="photo/Gemini_Generated_Image_l5ef5el5ef5el5ef.png"
+    />
+  </head>
+  <body>
+    <!-- Scroll Progress Bar -->
+    <div id="progress-bar"></div>
 
-  <!-- Scroll Progress Bar -->
-  <div id="progress-bar"></div>
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-trail"></div>
 
-  <!-- Custom Cursor -->
-  <div id="cursor"></div>
-  <div id="cursor-trail"></div>
-
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="loading-spinner"></div>
-    <p>ITStoreX</p>
-    <div id="loading-bar-wrap">
-      <div id="loading-bar"></div>
-    </div>
-  </div>
-
-  <!-- Navigation -->
-  <nav id="main-nav">
-    <div class="nav-inner">
-      <div class="logo text-glow" id="nav-logo">IT<span>Store</span>X</div>
-      <div class="desktop-menu" id="desktop-menu">
-        <a class="nav-link" onclick="smoothScrollTo('about')">About</a>
-        <a class="nav-link" onclick="smoothScrollTo('services')">Services</a>
-        <a class="nav-link" onclick="smoothScrollTo('project')">Project</a>
-        <a class="nav-link" onclick="smoothScrollTo('contact')">Contact</a>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="loading-spinner"></div>
+      <p>ITStoreX</p>
+      <div id="loading-bar-wrap">
+        <div id="loading-bar"></div>
       </div>
-      <button class="mobile-toggle" onclick="toggleMobileMenu()" id="mobile-btn" aria-label="Toggle menu">
-        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
     </div>
-    <div class="mobile-menu" id="mobile-menu" style="display:none">
-      <a onclick="smoothScrollTo('about');closeMobileMenu()">About</a>
-      <a onclick="smoothScrollTo('services');closeMobileMenu()">Services</a>
-      <a onclick="smoothScrollTo('project');closeMobileMenu()">Project</a>
-      <a onclick="smoothScrollTo('contact');closeMobileMenu()">Contact</a>
-    </div>
-  </nav>
 
-  <!-- Hero -->
-  <section id="hero">
-    <div class="particles" id="particles-container"></div>
-
-    <svg class="circuit-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#00ffff"/>
-          <stop offset="100%" stop-color="#0088ff"/>
-        </linearGradient>
-      </defs>
-      <path id="circuit-path" d="M 0 300 Q 300 100 600 300 T 1200 300" stroke="url(#lineGrad)" stroke-width="2" fill="none"/>
-      <circle cx="300" cy="200" r="4" fill="#00ffff" class="circuit-dot"/>
-      <circle cx="600" cy="300" r="4" fill="#00ffff" class="circuit-dot"/>
-      <circle cx="900" cy="200" r="4" fill="#00ffff" class="circuit-dot"/>
-    </svg>
-
-    <div class="hero-content" id="hero-content">
-      <div class="hero-badge" id="hero-badge">
-        <div class="neon-glow" style="display:inline-block;padding:12px 24px;color:#00ffff;font-weight:600;font-size:.875rem;">
-          ✨ Welcome to the Future
+    <!-- Navigation -->
+    <nav id="main-nav">
+      <div class="nav-inner">
+        <div class="logo text-glow" id="nav-logo">IT<span>Store</span>X</div>
+        <div class="desktop-menu" id="desktop-menu">
+          <a class="nav-link" onclick="smoothScrollTo('about')">About</a>
+          <a class="nav-link" onclick="smoothScrollTo('services')">Services</a>
+          <a class="nav-link" onclick="smoothScrollTo('project')">Project</a>
+          <a class="nav-link" onclick="smoothScrollTo('contact')">Contact</a>
         </div>
-      </div>
-
-      <h1 class="section-title hero-title" id="hero-title">
-        We Build <br>Future-Ready Digital<br>Experiences
-      </h1>
-
-      <p class="hero-sub" id="hero-sub">
-        High-converting websites &amp; 3D interactive menus for modern restaurants
-      </p>
-
-      <div class="hero-buttons" id="hero-buttons">
-        <button class="btn-primary" onclick="smoothScrollTo('project')">
-          View Demo
-          <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <button
+          class="mobile-toggle"
+          onclick="toggleMobileMenu()"
+          id="mobile-btn"
+          aria-label="Toggle menu"
+        >
+          <svg
+            id="menu-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+          <svg
+            id="close-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            style="display: none"
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
         </button>
-        <button class="btn-neon" onclick="smoothScrollTo('contact')">Start Your Project</button>
       </div>
+      <div class="mobile-menu" id="mobile-menu" style="display: none">
+        <a
+          onclick="
+            smoothScrollTo('about');
+            closeMobileMenu();
+          "
+          >About</a
+        >
+        <a
+          onclick="
+            smoothScrollTo('services');
+            closeMobileMenu();
+          "
+          >Services</a
+        >
+        <a
+          onclick="
+            smoothScrollTo('project');
+            closeMobileMenu();
+          "
+          >Project</a
+        >
+        <a
+          onclick="
+            smoothScrollTo('contact');
+            closeMobileMenu();
+          "
+          >Contact</a
+        >
+      </div>
+    </nav>
 
-      <div class="stats-grid" style="margin-top:80px;" id="stats-grid">
-        <div class="stat-box glass-effect" style="padding:24px;">
-          <div class="stat-num" data-target="50" data-suffix="+">0</div>
-          <div class="stat-label">Projects Delivered</div>
-        </div>
-        <div class="stat-box glass-effect" style="padding:24px;">
-          <div class="stat-num" data-target="98" data-suffix="%">0</div>
-          <div class="stat-label">Client Satisfaction</div>
-        </div>
-        <div class="stat-box glass-effect" style="padding:24px;">
-          <div class="stat-num" data-target="24" data-suffix="/7">0</div>
-          <div class="stat-label">Support</div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Hero -->
+    <section id="hero">
+      <div class="particles" id="particles-container"></div>
 
-  <!-- About -->
-  <section id="about">
-    <div class="section-center">
-      <div class="section-header gsap-hidden" id="about-header">
-        <h2 class="section-title">Who We Are</h2>
-      </div>
-      <div class="about-grid">
-        <div class="glass-effect about-text gsap-hidden" id="about-text" style="padding:32px;">
-          <h3>Elite Development Team</h3>
-          <p>We're a group of passionate developers and designers who specialize in creating cutting-edge digital solutions. With years of experience in the tech industry, we've mastered the art of combining stunning design with powerful functionality.</p>
-          <p>Our focus on 3D interactive menus for restaurants has revolutionized how customers engage with dining experiences. We don't just build websites—we craft digital experiences that convert visitors into loyal customers.</p>
-          <ul class="bullet-list" id="bullet-list">
-            <li><span class="bullet-dot"></span>Professional Excellence</li>
-            <li><span class="bullet-dot"></span>Creative Innovation</li>
-            <li><span class="bullet-dot"></span>Performance Obsessed</li>
-          </ul>
-        </div>
-        <div class="icon-grid" id="icon-grid">
-          <div class="glass-effect icon-card card-hover gsap-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <h4>Lightning Fast</h4>
-            <p>Optimized for speed</p>
-          </div>
-          <div class="glass-effect icon-card card-hover gsap-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            <h4>Clean Code</h4>
-            <p>Best practices always</p>
-          </div>
-          <div class="glass-effect icon-card card-hover gsap-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-            <h4>Design Focus</h4>
-            <p>Beautiful interfaces</p>
-          </div>
-          <div class="glass-effect icon-card card-hover gsap-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
-            <h4>Innovation</h4>
-            <p>Future-forward tech</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <svg
+        class="circuit-svg"
+        viewBox="0 0 1200 600"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <defs>
+          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00ffff" />
+            <stop offset="100%" stop-color="#0088ff" />
+          </linearGradient>
+        </defs>
+        <path
+          id="circuit-path"
+          d="M 0 300 Q 300 100 600 300 T 1200 300"
+          stroke="url(#lineGrad)"
+          stroke-width="2"
+          fill="none"
+        />
+        <circle cx="300" cy="200" r="4" fill="#00ffff" class="circuit-dot" />
+        <circle cx="600" cy="300" r="4" fill="#00ffff" class="circuit-dot" />
+        <circle cx="900" cy="200" r="4" fill="#00ffff" class="circuit-dot" />
+      </svg>
 
-  <!-- Services -->
-  <section id="services">
-    <div class="section-center">
-      <div class="section-header gsap-hidden" id="services-header">
-        <h2 class="section-title">Our Services</h2>
-      </div>
-      <div class="feature-grid" id="services-grid">
-        <div class="glass-effect service-card card-hover gsap-hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          <h3>Web Development</h3>
-          <p>High-performance websites built with modern frameworks and best practices. Optimized for conversion and user experience.</p>
+      <div class="hero-content" id="hero-content">
+        <div class="hero-badge" id="hero-badge">
+          <div
+            class="neon-glow"
+            style="
+              display: inline-block;
+              padding: 12px 24px;
+              color: #00ffff;
+              font-weight: 600;
+              font-size: 0.875rem;
+            "
+          >
+            ✨ Welcome to the Future
+          </div>
         </div>
-        <div class="glass-effect service-card card-hover gsap-hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
-          <h3>3D Menu Creation</h3>
-          <p>Interactive 3D menus that captivate customers and increase order values. Our specialty and your competitive advantage.</p>
-        </div>
-        <div class="glass-effect service-card card-hover gsap-hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-          <h3>UI/UX Design</h3>
-          <p>Stunning interface designs that users love. Every pixel serves a purpose in your conversion strategy.</p>
-        </div>
-        <div class="glass-effect service-card card-hover gsap-hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <h3>Performance Optimization</h3>
-          <p>Sub-second load times and blazing-fast interactions. Speed directly impacts your bottom line.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Featured Project -->
-  <section id="project">
-    <div class="section-center">
-      <div class="section-header gsap-hidden" id="project-header">
-        <h2 class="section-title">Featured Project</h2>
-      </div>
-      <div class="project-grid">
-        <div class="glass-effect project-info gsap-hidden" id="project-info" style="padding:32px;">
-          <h3>Interactive 3D Menu System</h3>
-          <p>Our flagship 3D interactive menu was designed to increase customer engagement and boost sales. This cutting-edge solution transforms how restaurants present their offerings.</p>
-          <ul class="check-list" id="check-list">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Real-time 3D visualization
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Mobile-optimized interaction
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Seamless ordering integration
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              Analytics &amp; insights included
-            </li>
-          </ul>
-          <button class="btn-primary w-full" style="justify-content:center;" onclick="window.open('https://zakaryaacode.github.io/menu-3d/','_blank')">
-            Get Your 3D Menu
+        <h1 class="section-title hero-title" id="hero-title">
+          We Build <br />Future-Ready Digital<br />Experiences
+        </h1>
+
+        <p class="hero-sub" id="hero-sub">
+          High-converting websites &amp; 3D interactive menus for modern
+          restaurants
+        </p>
+
+        <div class="hero-buttons" id="hero-buttons">
+          <button class="btn-primary" onclick="smoothScrollTo('project')">
+            View Demo
+            <svg
+              class="arrow-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+          <button class="btn-neon" onclick="smoothScrollTo('contact')">
+            Start Your Project
           </button>
         </div>
-        <div class="glass-effect iframe-wrap card-hover gsap-hidden" id="iframe-wrap">
-          <iframe src="https://zakaryaacode.github.io/menu-3d/" title="3D Menu Demo"></iframe>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Why Choose Us -->
-  <section id="why-section">
-    <div class="section-center-sm">
-      <div class="section-header gsap-hidden" id="why-header">
-        <h2 class="section-title">Why Choose ITStoreX</h2>
-      </div>
-      <div class="why-list" id="why-list">
-        <div class="glass-effect why-card card-hover gsap-hidden">
-          <div class="check-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="#000" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        <div class="stats-grid" style="margin-top: 80px" id="stats-grid">
+          <div class="stat-box glass-effect" style="padding: 24px">
+            <div class="stat-num" data-target="50" data-suffix="+">0</div>
+            <div class="stat-label">Projects Delivered</div>
           </div>
-          <div>
-            <h3>High-Converting Designs</h3>
-            <p>Every element is strategically placed to drive conversions and sales.</p>
+          <div class="stat-box glass-effect" style="padding: 24px">
+            <div class="stat-num" data-target="98" data-suffix="%">0</div>
+            <div class="stat-label">Client Satisfaction</div>
           </div>
-        </div>
-        <div class="glass-effect why-card card-hover gsap-hidden">
-          <div class="check-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="#000" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div>
-            <h3>Lightning-Fast Performance</h3>
-            <p>Sub-second load times and optimized for all devices. Speed = conversions.</p>
-          </div>
-        </div>
-        <div class="glass-effect why-card card-hover gsap-hidden">
-          <div class="check-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="#000" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div>
-            <h3>Unique 3D Experience</h3>
-            <p>Stand out from competitors with immersive 3D interactive menus.</p>
-          </div>
-        </div>
-        <div class="glass-effect why-card card-hover gsap-hidden">
-          <div class="check-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="#000" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div>
-            <h3>Real Business Results</h3>
-            <p>Our clients see measurable increases in engagement and revenue.</p>
-          </div>
-        </div>
-        <div class="glass-effect why-card card-hover gsap-hidden">
-          <div class="check-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="#000" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div>
-            <h3>24/7 Support &amp; Maintenance</h3>
-            <p>We're always here when you need us. Your success is our priority.</p>
-          </div>
-        </div>
-        <div class="glass-effect why-card card-hover gsap-hidden">
-          <div class="check-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="#000" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div>
-            <h3>Future-Proof Technology</h3>
-            <p>Built with cutting-edge tech that stays relevant for years to come.</p>
+          <div class="stat-box glass-effect" style="padding: 24px">
+            <div class="stat-num" data-target="24" data-suffix="/7">0</div>
+            <div class="stat-label">Support</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Testimonials -->
-  <section id="testimonials-section">
-    <div class="section-center">
-      <div class="section-header gsap-hidden" id="testimonials-header">
-        <h2 class="section-title">What Clients Say</h2>
+    <!-- About -->
+    <section id="about">
+      <div class="section-center">
+        <div class="section-header gsap-hidden" id="about-header">
+          <h2 class="section-title">Who We Are</h2>
+        </div>
+        <div class="about-grid">
+          <div
+            class="glass-effect about-text gsap-hidden"
+            id="about-text"
+            style="padding: 32px"
+          >
+            <h3>Elite Development Team</h3>
+            <p>
+              We're a group of passionate developers and designers who
+              specialize in creating cutting-edge digital solutions. With years
+              of experience in the tech industry, we've mastered the art of
+              combining stunning design with powerful functionality.
+            </p>
+            <p>
+              Our focus on 3D interactive menus for restaurants has
+              revolutionized how customers engage with dining experiences. We
+              don't just build websites—we craft digital experiences that
+              convert visitors into loyal customers.
+            </p>
+            <ul class="bullet-list" id="bullet-list">
+              <li><span class="bullet-dot"></span>Professional Excellence</li>
+              <li><span class="bullet-dot"></span>Creative Innovation</li>
+              <li><span class="bullet-dot"></span>Performance Obsessed</li>
+            </ul>
+          </div>
+          <div class="icon-grid" id="icon-grid">
+            <div class="glass-effect icon-card card-hover gsap-hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="#00ffff"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+              <h4>Lightning Fast</h4>
+              <p>Optimized for speed</p>
+            </div>
+            <div class="glass-effect icon-card card-hover gsap-hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="#00ffff"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
+              <h4>Clean Code</h4>
+              <p>Best practices always</p>
+            </div>
+            <div class="glass-effect icon-card card-hover gsap-hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="#00ffff"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+              </svg>
+              <h4>Design Focus</h4>
+              <p>Beautiful interfaces</p>
+            </div>
+            <div class="glass-effect icon-card card-hover gsap-hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="#00ffff"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
+                />
+                <path
+                  d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"
+                />
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+              </svg>
+              <h4>Innovation</h4>
+              <p>Future-forward tech</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="testimonials-grid" id="testimonials-grid">
-        <div class="glass-effect testimonial-card card-hover gsap-hidden">
-          <div class="stars">★★★★★</div>
-          <blockquote>"The 3D menu completely transformed our business. Customers spend more time exploring and ordering more items. Revenue increased by 35% in the first month!"</blockquote>
-          <p class="name">Marco Rossi</p>
-          <p class="role">Owner, Bella Italia Restaurant</p>
-        </div>
-        <div class="glass-effect testimonial-card card-hover gsap-hidden">
-          <div class="stars">★★★★★</div>
-          <blockquote>"Working with ITStoreX was a game-changer. Their team understood our vision and delivered beyond expectations. The attention to detail is unmatched."</blockquote>
-          <p class="name">Sarah Chen</p>
-          <p class="role">Director, Premium Dining Group</p>
-        </div>
-        <div class="glass-effect testimonial-card card-hover gsap-hidden">
-          <div class="stars">★★★★★</div>
-          <blockquote>"Professional, reliable, and innovative. The 3D interactive menu increased our customer engagement by 50%. Highly recommended!"</blockquote>
-          <p class="name">James McKenzie</p>
-          <p class="role">CEO, Modern Bistro Co.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <div class="section-center-sm">
-      <div class="section-header gsap-hidden" id="contact-header">
-        <h2 class="section-title">Let's Build Something Powerful</h2>
-        <p style="color:#6b7280;font-size:1.125rem;">Ready to transform your digital presence? Get in touch with us today.</p>
+    <!-- Services -->
+    <section id="services">
+      <div class="section-center">
+        <div class="section-header gsap-hidden" id="services-header">
+          <h2 class="section-title">Our Services</h2>
+        </div>
+        <div class="feature-grid" id="services-grid">
+          <div class="glass-effect service-card card-hover gsap-hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="#00ffff"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <polyline points="16 18 22 12 16 6" />
+              <polyline points="8 6 2 12 8 18" />
+            </svg>
+            <h3>Web Development</h3>
+            <p>
+              High-performance websites built with modern frameworks and best
+              practices. Optimized for conversion and user experience.
+            </p>
+          </div>
+          <div class="glass-effect service-card card-hover gsap-hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="#00ffff"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
+              />
+              <path
+                d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"
+              />
+              <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+              <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+            </svg>
+            <h3>3D Menu Creation</h3>
+            <p>
+              Interactive 3D menus that captivate customers and increase order
+              values. Our specialty and your competitive advantage.
+            </p>
+          </div>
+          <div class="glass-effect service-card card-hover gsap-hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="#00ffff"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+            </svg>
+            <h3>UI/UX Design</h3>
+            <p>
+              Stunning interface designs that users love. Every pixel serves a
+              purpose in your conversion strategy.
+            </p>
+          </div>
+          <div class="glass-effect service-card card-hover gsap-hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="#00ffff"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+            <h3>Performance Optimization</h3>
+            <p>
+              Sub-second load times and blazing-fast interactions. Speed
+              directly impacts your bottom line.
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="glass-effect contact-form gsap-hidden" id="contact-form">
-        <div class="field">
-          <input type="text" placeholder="Your Name" class="input-neon" required />
-        </div>
-        <div class="field">
-          <input type="email" placeholder="Your Email" class="input-neon" required />
-        </div>
-        <div class="field">
-          <textarea placeholder="Tell us about your project..." rows="6" class="input-neon" required></textarea>
-        </div>
-        <button class="btn-primary w-full" style="justify-content:center;padding:16px;font-size:1.125rem;" onclick="handleFormSubmit(this)">
-          Send Message
-        </button>
-      </div>
+    </section>
 
-      <div class="contact-grid" id="contact-grid">
-        <div class="glass-effect contact-item gsap-hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <p>zakarya.code@gmail.com</p>
+    <!-- Featured Project -->
+    <section id="project">
+      <div class="section-center">
+        <div class="section-header gsap-hidden" id="project-header">
+          <h2 class="section-title">Featured Project</h2>
         </div>
-        <div class="glass-effect contact-item gsap-hidden">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00ffff" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <p>(+213) 05 40 95 20 67</p>
+        <div class="project-grid">
+          <div
+            class="glass-effect project-info gsap-hidden"
+            id="project-info"
+            style="padding: 32px"
+          >
+            <h3>Interactive 3D Menu System</h3>
+            <p>
+              Our flagship 3D interactive menu was designed to increase customer
+              engagement and boost sales. This cutting-edge solution transforms
+              how restaurants present their offerings.
+            </p>
+            <ul class="check-list" id="check-list">
+              <li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="#00ffff"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Real-time 3D visualization
+              </li>
+              <li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="#00ffff"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Mobile-optimized interaction
+              </li>
+              <li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="#00ffff"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Seamless ordering integration
+              </li>
+              <li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="#00ffff"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Analytics &amp; insights included
+              </li>
+            </ul>
+            <button
+              class="btn-primary w-full"
+              style="justify-content: center"
+              onclick="
+                window.open('https://zakaryaacode.github.io/menu-3d/', '_blank')
+              "
+            >
+              Get Your 3D Menu
+            </button>
+          </div>
+          <div
+            class="glass-effect iframe-wrap card-hover gsap-hidden"
+            id="iframe-wrap"
+          >
+            <iframe
+              src="https://zakaryaacode.github.io/menu-3d/"
+              title="3D Menu Demo"
+            ></iframe>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer id="main-footer">
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-logo text-glow">IT<span>Store</span>X</div>
-          <p class="footer-tagline">Where Code Meets Experience</p>
+    <!-- Why Choose Us -->
+    <section id="why-section">
+      <div class="section-center-sm">
+        <div class="section-header gsap-hidden" id="why-header">
+          <h2 class="section-title">Why Choose ITStoreX</h2>
         </div>
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <ul>
-            <li onclick="smoothScrollTo('about')">About</li>
-            <li onclick="smoothScrollTo('services')">Services</li>
-            <li onclick="smoothScrollTo('project')">Projects</li>
-            <li onclick="smoothScrollTo('contact')">Contact</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Services</h4>
-          <ul>
-            <li>Web Development</li>
-            <li>3D Menus</li>
-            <li>UI/UX Design</li>
-            <li>Optimization</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Follow Us</h4>
-          <ul>
-            <li>TikTok</li>
-            <li>LinkedIn</li>
-            <li>GitHub</li>
-            <li>Instagram</li>
-          </ul>
+        <div class="why-list" id="why-list">
+          <div class="glass-effect why-card card-hover gsap-hidden">
+            <div class="check-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="#000"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <h3>High-Converting Designs</h3>
+              <p>
+                Every element is strategically placed to drive conversions and
+                sales.
+              </p>
+            </div>
+          </div>
+          <div class="glass-effect why-card card-hover gsap-hidden">
+            <div class="check-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="#000"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <h3>Lightning-Fast Performance</h3>
+              <p>
+                Sub-second load times and optimized for all devices. Speed =
+                conversions.
+              </p>
+            </div>
+          </div>
+          <div class="glass-effect why-card card-hover gsap-hidden">
+            <div class="check-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="#000"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <h3>Unique 3D Experience</h3>
+              <p>
+                Stand out from competitors with immersive 3D interactive menus.
+              </p>
+            </div>
+          </div>
+          <div class="glass-effect why-card card-hover gsap-hidden">
+            <div class="check-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="#000"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <h3>Real Business Results</h3>
+              <p>
+                Our clients see measurable increases in engagement and revenue.
+              </p>
+            </div>
+          </div>
+          <div class="glass-effect why-card card-hover gsap-hidden">
+            <div class="check-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="#000"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <h3>24/7 Support &amp; Maintenance</h3>
+              <p>
+                We're always here when you need us. Your success is our
+                priority.
+              </p>
+            </div>
+          </div>
+          <div class="glass-effect why-card card-hover gsap-hidden">
+            <div class="check-circle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="#000"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <div>
+              <h3>Future-Proof Technology</h3>
+              <p>
+                Built with cutting-edge tech that stays relevant for years to
+                come.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>© 2024 ITStoreX. All rights reserved. Where Code Meets Experience.</p>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="section-center-sm">
+        <div class="section-header gsap-hidden" id="contact-header">
+          <h2 class="section-title">Let's Build Something Powerful</h2>
+          <p style="color: #6b7280; font-size: 1.125rem">
+            Ready to transform your digital presence? Get in touch with us
+            today.
+          </p>
+        </div>
+        <div class="glass-effect contact-form gsap-hidden" id="contact-form">
+          <div class="field">
+            <input
+              type="text"
+              placeholder="Your Name"
+              class="input-neon"
+              required
+            />
+          </div>
+          <div class="field">
+            <input
+              type="email"
+              placeholder="Your Email"
+              class="input-neon"
+              required
+            />
+          </div>
+          <div class="field">
+            <textarea
+              placeholder="Tell us about your project..."
+              rows="6"
+              class="input-neon"
+              required
+            ></textarea>
+          </div>
+          <button
+            class="btn-primary w-full"
+            style="justify-content: center; padding: 16px; font-size: 1.125rem"
+            onclick="handleFormSubmit(this)"
+          >
+            Send Message
+          </button>
+        </div>
+
+        <div class="contact-grid" id="contact-grid">
+          <div class="glass-effect contact-item gsap-hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="#00ffff"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <p>zakarya.code@gmail.com</p>
+          </div>
+          <div class="glass-effect contact-item gsap-hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              stroke="#00ffff"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+            <p>(+213) 05 40 95 20 67</p>
+          </div>
+        </div>
       </div>
-    </div>
-  </footer>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo text-glow">IT<span>Store</span>X</div>
+            <p class="footer-tagline">Where Code Meets Experience</p>
+          </div>
+          <div class="footer-col">
+            <h4>Follow Us</h4>
+            <ul  class="social-links">
+              <li>
+                <a href="https://www.tiktok.com/" target="_blank">TikTok</a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/the_it_storex?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Instagram</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            © 2024 ITStoreX. All rights reserved. Where Code Meets Experience.
+          </p>
+        </div>
+      </div>
+    </footer>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
